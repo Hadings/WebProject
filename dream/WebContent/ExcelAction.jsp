@@ -14,7 +14,7 @@
 	
 	ExcelWriter writer = ExcelWriter.getInstance();
 	
-	writer.xlsxWriter(usr);
+	writer.studentWriter();
 %>
 
 <html>

@@ -1,10 +1,15 @@
 package com.excel;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -76,5 +81,27 @@ public class ExcelWriter {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public int studentWriter() throws EncryptedDocumentException, InvalidFormatException, IOException {
+		InputStream inp = new FileInputStream("/Users/cykim/Desktop/testWrite.xlsx");
+		
+		XSSFWorkbook wb = new XSSFWorkbook(inp);
+		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFRow row = sheet.getRow(1);
+		XSSFCell cell;
+		cell = row.getCell(3);
+		
+		if (cell == null)
+	        cell = row.createCell(3);
+	    cell.setCellType(CellType.STRING);
+	    cell.setCellValue("a test");
+
+	    // Write the output to a file
+	    FileOutputStream fileOut = new FileOutputStream("/Users/cykim/Desktop/testWrite1.xlsx");
+	    wb.write(fileOut);
+		fileOut.close();
+	    
+		return 1;
 	}
 }
